@@ -44,6 +44,7 @@ def generate_with_lines(image_num, width, height):
         draw = ImageDraw.Draw(image)
         for i in range(random.randint(0, 50)):
             draw.line(random_parameters(height), fill=ImageColor.getrgb(random_color()))
+            draw.polygon(random_triangle(width, height), fill=random_color(), outline=random_color())
         draw_without_lines(draw, width)
         image.save(MulticolorPatch.create_random_filename())
 
@@ -67,6 +68,13 @@ def draw_without_lines(draw, width):
 def random_parameters(upper_range):
     return (random.randint(0, upper_range), random.randint(0, upper_range),
             random.randint(0, upper_range), random.randint(0, upper_range))
+
+
+def random_triangle(x, y):
+    triangle =[random.randint(1, x), random.randint(1, y),
+            random.randint(1, x), random.randint(1, y), random.randint(1, x),
+            random.randint(1, y)]
+    return triangle
 
 
 def random_color():
