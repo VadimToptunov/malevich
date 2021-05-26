@@ -71,10 +71,14 @@ def random_parameters(upper_range):
 
 
 def random_polygon(x, y):
-    length = random.randint(1, 500)
-    polygon_x = random.sample(range(1, x), length)
-    polygon_y = random.sample(range(1, y), length)
-    return polygon_x + polygon_y
+    try:
+        length = random.randint(2, 500)
+        polygon_x = random.sample(range(1, x), length)
+        polygon_y = random.sample(range(1, y), length)
+        return polygon_x + polygon_y
+    except Exception as error:
+        print(error)
+        pass
 
 
 def random_color():
