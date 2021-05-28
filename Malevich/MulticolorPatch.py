@@ -1,5 +1,6 @@
 import datetime
 
+import termcolor
 from PIL import Image
 import random
 import string
@@ -11,14 +12,13 @@ col_max = 256
 name_length = 16
 
 
-def create_image(image_num, width, height):
+def create_image(width, height):
     r = lambda: random.randint(0, 255)
     im = Image.new("RGB", (width, height), '#{:02x}{:02x}{:02x}'.format(r(), r(), r()))
-    for num in range(image_num):
-        for i in range(random_int(min, height)):
-            for j in range(random_int(min, height)):
-                im.paste((random_color()), (random_int(min, height), random_int(min, height), random_int(min, height),
-                                            random_int(min, height)))
+    for i in range(random_int(min, height)):
+        for j in range(random_int(min, height)):
+            im.paste((random_color()), (random_int(min, width), random_int(min, height), random_int(min, width),
+                                        random_int(min, height)))
         im.save(create_random_filename())
 
 
@@ -38,5 +38,6 @@ def create_random_filename():
     else:
         pass
     filepath = f"{directory}{filename}"
-    print(f"File: {filepath}")
+    text = f"File: {filepath}"
+    print(termcolor.colored(text, "green"))
     return filepath

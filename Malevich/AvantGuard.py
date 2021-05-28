@@ -38,31 +38,31 @@ def random_palette():
     return random.choice(palette)
 
 
-def generate_with_lines(image_num, width, height):
-    for num in range(image_num):
-        image = Image.new(color_scheme, (width, height), random_color())
-        draw = ImageDraw.Draw(image)
-        for i in range(random.randint(0, 50)):
+def generate_image(width, height, lines: bool, polygon: bool, eclipse: bool, rectangle: bool):
+    image = Image.new(color_scheme, (width, height), random_color())
+    draw = ImageDraw.Draw(image)
+    for i in range(random.randint(0, 50)):
+        if lines is True:
             draw.line(random_parameters(height), fill=ImageColor.getrgb(random_color()))
+        else:
+            pass
+        if polygon is True:
             draw.polygon(random_polygon(width, height), fill=random_color(), outline=random_color())
-        draw_without_lines(draw, width)
-        image.save(MulticolorPatch.create_random_filename())
+        else:
+            pass
 
-
-def generate_without_lines(image_num, width, height):
-    for num in range(image_num):
-        image = Image.new(color_scheme, (width, height), random_color())
-        draw = ImageDraw.Draw(image)
-        draw_without_lines(draw, width)
-        image.save(MulticolorPatch.create_random_filename())
-
-
-def draw_without_lines(draw, width):
     for j in range(random.randint(0, 5)):
-        draw.ellipse(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
+        if eclipse is True:
+            draw.ellipse(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
+        else:
+            pass
 
     for x in range(random.randint(0, 10)):
-        draw.rectangle(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
+        if rectangle is True:
+            draw.rectangle(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
+        else:
+            pass
+    image.save(MulticolorPatch.create_random_filename())
 
 
 def random_parameters(upper_range):
