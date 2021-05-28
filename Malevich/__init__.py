@@ -1,25 +1,22 @@
 import AvantGuard
-import MulticolorPatch
 import random
+import Tech
 import termcolor
 
 
-def runner():
+def runner(width, height):
     try:
-        image_n = int(input("How many images do you need? "))
-        width = int(input("Set width: "))
-        height = int(input("Set height: "))
         boolean = [True, False]
-        random_function_list = [MulticolorPatch.create_image(width, height),
-                                AvantGuard.generate_image(width, height, random.choice(boolean),
-                                                          random.choice(boolean), random.choice(boolean),
-                                                          random.choice(boolean))]
-        for i in range(image_n):
-            random.choice(random_function_list)
+        AvantGuard.generate_image(width, height, random.choice(boolean), random.choice(boolean), random.choice(boolean),
+                                  random.choice(boolean), random.choice(boolean))
     except KeyboardInterrupt:
         print(termcolor.colored("Closing program.", "green"))
-    print(termcolor.colored("All pictures are created!", "red"))
 
 
 if __name__ == "__main__":
-    runner()
+    image_n = int(input("How many images do you need? "))
+    width = int(input("Set width: "))
+    height = int(input("Set height: "))
+    for i in range(image_n):
+        runner(width, height)
+    print(termcolor.colored("All pictures are created!", "red"))

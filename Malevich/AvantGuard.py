@@ -1,8 +1,11 @@
-from PIL import Image, ImageColor, ImageDraw
+from PIL import Image
+from PIL import ImageColor
+from PIL import ImageDraw
 import random
-import MulticolorPatch
+import Tech
 
 color_scheme = "RGB"
+min = 0
 
 
 def random_palette():
@@ -38,10 +41,17 @@ def random_palette():
     return random.choice(palette)
 
 
-def generate_image(width, height, lines: bool, polygon: bool, eclipse: bool, rectangle: bool):
+def generate_image(width, height, patch: bool, lines: bool, polygon: bool, eclipse: bool, rectangle: bool):
     image = Image.new(color_scheme, (width, height), random_color())
     draw = ImageDraw.Draw(image)
-    for i in range(random.randint(0, 50)):
+    if patch is True:
+        for i in range(Tech.random_int(min, height)):
+            image.paste((random_color()), (
+                Tech.random_int(min, width), Tech.random_int(min, height),
+                Tech.random_int(min, width),
+                Tech.random_int(min, height)))
+
+    for i in range(random.randint(min, 50)):
         if lines is True:
             draw.line(random_parameters(height), fill=ImageColor.getrgb(random_color()))
         else:
@@ -51,23 +61,23 @@ def generate_image(width, height, lines: bool, polygon: bool, eclipse: bool, rec
         else:
             pass
 
-    for j in range(random.randint(0, 5)):
+    for j in range(random.randint(min, 5)):
         if eclipse is True:
             draw.ellipse(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
         else:
             pass
 
-    for x in range(random.randint(0, 10)):
+    for x in range(random.randint(min, 10)):
         if rectangle is True:
             draw.rectangle(random_parameters(width), fill=ImageColor.getcolor(random_color(), color_scheme))
         else:
             pass
-    image.save(MulticolorPatch.create_random_filename())
+    image.save(Tech.create_random_filename())
 
 
 def random_parameters(upper_range):
-    return (random.randint(0, upper_range), random.randint(0, upper_range),
-            random.randint(0, upper_range), random.randint(0, upper_range))
+    return (random.randint(min, upper_range), random.randint(min, upper_range),
+            random.randint(min, upper_range), random.randint(min, upper_range))
 
 
 def random_polygon(x, y):
